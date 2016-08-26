@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   var whoQuestionAndAnswer = {
     question: "Who was ",
-    multipleChoice: ['Esther','Luke','John','Paul','Solomon','Moses','Peter','Goliath','Job','Isaiah','Abraham', 'Aaron','Solomon','Barnabas','Hannah','Simon','Thomas','Timothy', 'Philip', 'Stephen','Sarah', 'Joseph', 'Abraham','Mark']
+    multipleChoice: ['Esther','Luke','John','Paul','Solomon','Moses','Peter','Goliath','Job','Isaiah','Abraham', 'Aaron','Solomon','Barnabas','Hannah','Simon','Thomas','Timothy','Philip','Stephen','Sarah','Joseph','Abraham','Mark']
   };
 
   var numberQuestionAndAnswer = {
@@ -15,7 +15,58 @@ $(document).ready(function() {
   questionSet1 = {
       question: whoQuestionAndAnswer.question.slice(0,4) + "wrote most of the New Testament?",
       multipleChoice: function () {
-        shuffledArr(whoQuestionAndAnswer.multipleChoice)
+        var finalMultipleChoices = [];
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+      }
+  };
+
+  var questionSet2 = Object.create(whoQuestionAndAnswer);
+
+  questionSet1 = {
+      question: whoQuestionAndAnswer.question.slice(0,4) + "wrote most of the New Testament?",
+      multipleChoice: function () {
+        var finalMultipleChoices = [];
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+      }
+  };
+
+  var questionSet3 = Object.create(whoQuestionAndAnswer);
+
+  questionSet1 = {
+      question: whoQuestionAndAnswer.question.slice(0,4) + "wrote most of the New Testament?",
+      multipleChoice: function () {
+        var finalMultipleChoices = [];
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+      }
+  };
+
+  var questionSet4 = Object.create(whoQuestionAndAnswer);
+
+  questionSet1 = {
+      question: whoQuestionAndAnswer.question.slice(0,4) + "wrote most of the New Testament?",
+      multipleChoice: function () {
+        var finalMultipleChoices = [];
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+      }
+  };
+
+  var questionSet5 = Object.create(whoQuestionAndAnswer);
+
+  questionSet1 = {
+      question: whoQuestionAndAnswer.question.slice(0,4) + "wrote most of the New Testament?",
+      multipleChoice: function () {
+        var finalMultipleChoices = [];
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
+        finalMultipleChoices.push(whoQuestionAndAnswer.multipleChoice.pop());
       }
   };
 
