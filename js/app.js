@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+//thisisnew
   var whoQuestionAndAnswer = {
     question: "Who was ",
     multipleChoice: ['Esther', 'Luke', 'John', 'Solomon', 'Moses', 'Luke', 'Goliath', 'Job',
