@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
   var WhoQuestionAndAnswers = {
-    multipleChoiceAnswers: ['Esther','Luke','John','Solomon','Moses','Goliath','David','Job','Isaiah','Abraham','Aaron','Adam','Eve','Aaron','Barnabas','Hannah','Thomas','Timothy','Philip','Stephen','Mark'],
+    multipleChoiceAnswers: ['Sarah','Abel','John','Isaiah','Moses','Goliath','David','Job','Isaiah','Abraham','Aaron','Adam','Eve','Aaron','Barnabas','Hannah','Thomas','Timothy','Philip','Stephen','Mark'],
     multipleChoiceBuilder: function (whoMultipleChoice) {
       if(whoMultipleChoice.length !== 4) {
         whoMultipleChoice = whoMultipleChoice.multipleChoiceAnswers;
@@ -20,10 +20,10 @@ $(document).ready(function() {
 
       if(whoMultipleChoice.indexOf(this.question.slice(this.question.indexOf(":")+1)) < 0) {
         var newArr = [];
-		    for(var i = 0; i < 3; i++) {
+		    for(var i = 1; i <= 3; i++) {
 		      newArr.push(whoMultipleChoice.pop());
 			  }
-			  newArr.push(this.question.slice(this.question.indexOf(":")+1))
+			  newArr.push(this.question.slice(this.question.indexOf(":")+1));
 		    return this.multipleChoiceBuilder(newArr);
 	    }
     this.answer = this.question.slice(this.question.indexOf(":")+1);
@@ -52,10 +52,10 @@ $(document).ready(function() {
 
       if(whenMultipleChoice.indexOf(this.question.slice(this.question.indexOf(":")+1)) < 0) {
         var newArr = [];
-		    for(var i = 0; i < 3; i++) {
+		    for(var i = 1; i <= 3; i++) {
 		      newArr.push(whenMultipleChoice.pop());
 			  }
-			  newArr.push(this.question.slice(this.question.indexOf(":")+1))
+			  newArr.push(this.question.slice(this.question.indexOf(":")+1));
 		    return this.multipleChoiceBuilder(newArr);
 	    }
     this.answer = this.question.slice(this.question.indexOf(":")+1);
@@ -125,8 +125,11 @@ $(document).ready(function() {
         populateQuesAndAns(questionSet.shift());
     }
 
+    function nextQuestionGenerator() {
+      populateQuesAndAns(questions.shift());
+    }
+
     function populateQuesAndAns(eachQuestionObject) {
-      console.log(eachQuestionObject.question);
         $('#question-view').text(eachQuestionObject.question);
         for (var i = 0; i < eachQuestionObject.multipleChoiceAnswers.length; i++) {
             $('.choice' + i).text(eachQuestionObject.multipleChoiceAnswers[i]);
@@ -150,18 +153,15 @@ $(document).ready(function() {
                 $('#correct-incorrect-status').hide();
                 $('#question-view').hide();
                 $('#answer-view').hide();
-                $('#result-screen').show().html('<h2>Sorry, the correct answer is ' + answer + '</h2>');
+                $('#result-screen').show().text('Sorry, the correct answer is ' + answer);
             }
         });
     }
 
-    function nextQuestionGenerator() {
-      populateQuesAndAns(questions.pop());
-    }
-
-    $('.next-question-button').click(function(event) {
+    $('.next-question-button').on('click',function(event) {
       var counter = 1;
       event.preventDefault();
+      nextQuestionGenerator();
       $('#result-screen').hide();
       $('#question-answer-box').show();
       $('#correct-incorrect-status').show();
@@ -169,7 +169,6 @@ $(document).ready(function() {
       $('#answer-view').show();
       $('#question-status').show();
       counter++;
-      nextQuestionGenerator();
     });
 
 });
