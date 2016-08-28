@@ -5,14 +5,17 @@ header {
     border: 1px solid black;
     background-color: black;
 }
+
 footer {
     background-color: black;
     color: white;
     height: 80px;
 }
+
 #start-button {
     border: 1px solid black;
 }
+
 #welcome-screen {
     margin: 40px auto;
     width: 45%;
@@ -22,6 +25,7 @@ footer {
     background-color: white;
     display: block;
 }
+
 #result-screen {
     margin: 40px auto;
     width: 45%;
@@ -31,11 +35,13 @@ footer {
     background-color: white;
     display: none;
 }
+
 #question-status {
     background-color: steelblue;
     border: 1px solid black;
     display: none;
 }
+
 #question-answer-box {
     position: relative;
     height: 500px;
@@ -43,6 +49,7 @@ footer {
     border: 1px solid black;
     display: none;
 }
+
 #question-view {
     background-color: white;
     border: 1px solid black;
@@ -53,6 +60,7 @@ footer {
     top: 80px;
     display: none;
 }
+
 #answer-view {
     background-color: white;
     border: 1px solid black;
@@ -63,6 +71,7 @@ footer {
     top: 250px;
     display: none;
 }
+
 #correct-incorrect-status {
     background-color: pink;
     border: 1px solid black;
@@ -73,6 +82,7 @@ footer {
     top: 20px;
     display: none;
 }
+
 #multiple-choice li {
     width: 100px;
     height: 30px;
@@ -81,7 +91,15 @@ footer {
     margin-top: 20px;
     margin-right: 20px;
     border: 1px solid lightgray;
+    cursor: pointer;
 }
+
+.next-question-button {
+    width: 500px;
+    height: 500px;
+    border: 1px black solid;
+}
+
 .container {
     background-color: lightgray;
     width: 75%;

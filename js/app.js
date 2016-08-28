@@ -1,68 +1,107 @@
 $(document).ready(function() {
 
-  var whoQuestionAndAnswer = {
-    question: "Who was ",
-    multipleChoice: ['Esther', 'Luke', 'John', 'Solomon', 'Moses', 'Luke', 'Goliath', 'Job',
-     'Isaiah', 'Abraham', 'Aaron', 'Barnabas', 'Hannah', 'Simon', 'Thomas'],
-     multipleChoiceBuilder: function () {
-        var finalMultipleChoices = [];
-        this.multipleChoice.push(whoQuestionAndAnswer.multipleChoice.shift());
-        this.multipleChoice.push(whoQuestionAndAnswer.multipleChoice.shift());
-        this.multipleChoice.push(this.answer);
-        this.multipleChoice.push(whoQuestionAndAnswer.multipleChoice.shift());
-        // shuffledArr = arr.sort(function() {
-        //     return Math.round(Math.random());
-        //});
-        //shuffle(finalMultipleChoices);
+  var WhoQuestionAndAnswers = {
+    multipleChoiceAnswers: ['Esther','Luke','John','Solomon','Moses','Goliath','David','Job','Isaiah','Abraham','Aaron','Adam','Eve','Aaron','Barnabas','Hannah','Thomas','Timothy','Philip','Stephen','Mark'],
+    multipleChoiceBuilder: function (whoMultipleChoice) {
+      if(whoMultipleChoice.length !== 4) {
+        whoMultipleChoice = whoMultipleChoice.multipleChoiceAnswers;
       }
-  };
+      /*Lines 11-19 is using 'The Fisher-Yates' (aka Knuth) shuffle algorithm
+      reference: https://github.com/coolaj86/knuth-shuffle*/
+		  var currentIndex = whoMultipleChoice.length, temporaryValue, randomIndex;
 
-  // var numberQuestionAndAnswer = {
-  //   question: "How many ",
-  //   multipleChoice: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-  // };
+		  while (0 !== currentIndex) {
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+			  temporaryValue = whoMultipleChoice[currentIndex];
+			  whoMultipleChoice[currentIndex] = whoMultipleChoice[randomIndex];
+			  whoMultipleChoice[randomIndex] = temporaryValue;
+		  }
 
-  var questionSet1 = {
-      question: whoQuestionAndAnswer.question.slice(0,4) + "wrote most of the New Testament?",
-      multipleChoice: [],
-      answer: 'Paul'
-  };
+      if(whoMultipleChoice.indexOf(this.question.slice(this.question.indexOf(":")+1)) < 0) {
+        var newArr = [];
+		    for(var i = 0; i < 3; i++) {
+		      newArr.push(whoMultipleChoice.pop());
+			  }
+			  newArr.push(this.question.slice(this.question.indexOf(":")+1))
+		    return this.multipleChoiceBuilder(newArr);
+	    }
+    this.answer = this.question.slice(this.question.indexOf(":")+1);
+    this.question = this.question.slice(0,this.question.indexOf(":"));
+    return this.multipleChoiceAnswers = whoMultipleChoice;
+   }
+ }
 
-  Object.setPrototypeOf(questionSet1, whoQuestionAndAnswer);
+  var WhenQuestionAndAnswers = {
+    multipleChoiceAnswers: [1,3,4,10,11,13],
+    multipleChoiceBuilder: function (whenMultipleChoice) {
+      if(whenMultipleChoice.length !== 4) {
+        whenMultipleChoice = whenMultipleChoice.multipleChoiceAnswers;
+      }
+      /*Lines 43-51 is using 'The Fisher-Yates' (aka Knuth) shuffle algorithm
+      reference: https://github.com/coolaj86/knuth-shuffle*/
+		  var currentIndex = whenMultipleChoice.length, temporaryValue, randomIndex;
 
-  var questionSet2 = Object.create(whoQuestionAndAnswer);
+		  while (0 !== currentIndex) {
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+			  temporaryValue = whenMultipleChoice[currentIndex];
+			  whenMultipleChoice[currentIndex] = whenMultipleChoice[randomIndex];
+			  whenMultipleChoice[randomIndex] = temporaryValue;
+		  }
 
-  questionSet2 = {
-      question: whoQuestionAndAnswer.question.slice(0,4) + "was crucified on the cross upside down because he felt unworthy to be crucified in the way that the Jesus Christ has been?",
-      multipleChoice: [],
-      answer: 'Peter'
-  };
+      if(whenMultipleChoice.indexOf(this.question.slice(this.question.indexOf(":")+1)) < 0) {
+        var newArr = [];
+		    for(var i = 0; i < 3; i++) {
+		      newArr.push(whenMultipleChoice.pop());
+			  }
+			  newArr.push(this.question.slice(this.question.indexOf(":")+1))
+		    return this.multipleChoiceBuilder(newArr);
+	    }
+    this.answer = this.question.slice(this.question.indexOf(":")+1);
+    this.question = this.question.slice(0,this.question.indexOf(":"));
+	  return this.multipleChoiceAnswers = whenMultipleChoice;
+   }
+ }
 
-  var questionSet3 = Object.create(whoQuestionAndAnswer);
+ var questionSet1 = Object.create(WhoQuestionAndAnswers);
+ questionSet1.question = 'Who wrote most of the New Testament:Paul'
+ questionSet1.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
-  questionSet3 = {
-      question: whoQuestionAndAnswer.question.slice(0,4) + "was the person that married a Gentile and saved the Jews from persecution?",
-      multipleChoice: [],
-      answer: 'Esther'
-  };
+ var questionSet2 = Object.create(WhoQuestionAndAnswers);
+ questionSet2.question = 'Who was crucified on the cross upside down because he felt unworthy to be crucified in the way that the Jesus Christ has been?:Peter'
+ questionSet2.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
-  var questionSet4 = Object.create(whoQuestionAndAnswer);
+ var questionSet3 = Object.create(WhoQuestionAndAnswers);
+ questionSet3.question = "Who was the person that married a Gentile and saved the Jews from persecution?:Esther"
+ questionSet3.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
-  questionSet4 = {
-      question: whoQuestionAndAnswer.question.slice(0,4) + "prayed for wisdom instead of long life, riches or the life of his enemy?",
-      multipleChoice: [],
-      answer: 'Solomon'
-  };
+ var questionSet4 = Object.create(WhenQuestionAndAnswers);
+ questionSet4.question = "How many Apostles were chosen by Jesus Christ?:12"
+ questionSet4.multipleChoiceBuilder(WhenQuestionAndAnswers);
 
-  var questionSet5 = Object.create(whoQuestionAndAnswer);
+ var questionSet5 = Object.create(WhoQuestionAndAnswers);
+ questionSet5.question = "Who prayed for wisdom instead of long life, riches or the life of his enemy?:Solomon"
+ questionSet5.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
-  questionSet5 = {
-      question: whoQuestionAndAnswer.question.slice(0,4) + "was known to be a physician among the apostles?",
-      multipleChoice: [],
-      answer: 'Luke'
-  };
+ var questionSet6 = Object.create(WhoQuestionAndAnswers);
+ questionSet6.question = "Amongst the Apostles, who was known to be a physician?:Luke"
+ questionSet6.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
-    var questions = [questionSet1, questionSet2, questionSet3, questionSet4, questionSet5];
+ var questionSet7 = Object.create(WhoQuestionAndAnswers);
+ questionSet7.question = "Who had Saul as his birth name?:Paul"
+ questionSet7.multipleChoiceBuilder(WhoQuestionAndAnswers);
+
+ var questionSet8 = Object.create(WhenQuestionAndAnswers);
+ questionSet8.question = "On which day did God create the sky?:2"
+ questionSet8.multipleChoiceBuilder(WhenQuestionAndAnswers);
+
+ var questionSet9 = Object.create(WhoQuestionAndAnswers);
+ questionSet9.question = "Who was sold as a slave and later ended up reuniting with his family, saving a nation from starvation?:Joseph"
+ questionSet9.multipleChoiceBuilder(WhoQuestionAndAnswers);
+
+
+    var questions = [questionSet1, questionSet2, questionSet3, questionSet4, questionSet5, questionSet6, questionSet7, questionSet8, questionSet9];
 
     $('.start-button').click(function(event) {
         event.preventDefault();
@@ -83,55 +122,54 @@ $(document).ready(function() {
     }
 
     function questionReceiver(questionSet) {
-        var nextQuestionSet = questionSet.shift();
-        nextQuestionSet.multipleChoiceBuilder();
-        populateQuesAndAns(nextQuestionSet);
+        populateQuesAndAns(questionSet.shift());
     }
 
     function populateQuesAndAns(eachQuestionObject) {
+      console.log(eachQuestionObject.question);
         $('#question-view').text(eachQuestionObject.question);
-        for (var i = 0; i < eachQuestionObject.multipleChoice.length; i++) {
-            $('.choice' + i).text(eachQuestionObject.multipleChoice[i]);
+        for (var i = 0; i < eachQuestionObject.multipleChoiceAnswers.length; i++) {
+            $('.choice' + i).text(eachQuestionObject.multipleChoiceAnswers[i]);
         }
         answerChecker(eachQuestionObject.answer)
     }
 
     function answerChecker(answer) {
-        $('#multiple-choice li').click(function(event) {
-
+        $('#multiple-choice li').click(function() {
+          var counter = 0;
             if ($(event.target).text() == answer) {
                 $('#question-answer-box').hide();
                 $('#correct-incorrect-status').hide();
                 $('#question-view').hide();
                 $('#answer-view').hide();
-                $('#result-screen').show().append('<h2>You Got It</h2>');
+                $('#result-screen').show().html('<h2>You Got It</h2>');
+                $('#result-screen').html('<a href="" class="next-question-button">Next Question</a>')
+                counter++;
             } else {
                 $('#question-answer-box').hide();
                 $('#correct-incorrect-status').hide();
                 $('#question-view').hide();
                 $('#answer-view').hide();
-                $('#result-screen').show().append('<h2>Sorry, the correct answer is ' + answer + '</h2>');
+                $('#result-screen').show().html('<h2>Sorry, the correct answer is ' + answer + '</h2>');
             }
         });
     }
 
-    function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
+    function nextQuestionGenerator() {
+      populateQuesAndAns(questions.pop());
+    }
 
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-}
+    $('.next-question-button').click(function(event) {
+      var counter = 1;
+      event.preventDefault();
+      $('#result-screen').hide();
+      $('#question-answer-box').show();
+      $('#correct-incorrect-status').show();
+      $('#question-view').show();
+      $('#answer-view').show();
+      $('#question-status').show();
+      counter++;
+      nextQuestionGenerator();
+    });
 
 });
