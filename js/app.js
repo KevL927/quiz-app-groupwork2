@@ -65,7 +65,7 @@ $(document).ready(function() {
  }
 
  var questionSet1 = Object.create(WhoQuestionAndAnswers);
- questionSet1.question = 'Who wrote most of the New Testament:Paul'
+ questionSet1.question = 'Who wrote most of the New Testament?:Paul'
  questionSet1.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
  var questionSet2 = Object.create(WhoQuestionAndAnswers);
@@ -101,7 +101,10 @@ $(document).ready(function() {
  questionSet9.multipleChoiceBuilder(WhoQuestionAndAnswers);
 
 
-    var questions = [questionSet1, questionSet2, questionSet3, questionSet4, questionSet5, questionSet6, questionSet7, questionSet8, questionSet9];
+    var questions = [questionSet1, questionSet2, questionSet3, questionSet4, questionSet5, questionSet6, questionSet7, questionSet8, questionSet9],
+        currentQuestionStatusCounter = 0,
+        correctAnswerStatus = 0;
+
 
     $('.start-button').click(function(event) {
         event.preventDefault();
@@ -130,6 +133,9 @@ $(document).ready(function() {
     }
 
     function populateQuesAndAns(eachQuestionObject) {
+      currentQuestionStatusCounter++;
+        $('#question-status').text(currentQuestionStatusCounter + ' of ' + (questions.length+1));
+        $('#correct-incorrect-status').text('You got ' + correctAnswerStatus + ' of ' + (questions.length+1) + ' correct');
         $('#question-view').text(eachQuestionObject.question);
         for (var i = 0; i < eachQuestionObject.multipleChoiceAnswers.length; i++) {
             $('.choice' + i).text(eachQuestionObject.multipleChoiceAnswers[i]);
@@ -139,28 +145,28 @@ $(document).ready(function() {
 
     function answerChecker(answer) {
         $('#multiple-choice li').click(function() {
-          var counter = 0;
             if ($(event.target).text() == answer) {
+                correctAnswerStatus++;
                 $('#question-answer-box').hide();
                 $('#correct-incorrect-status').hide();
+                $('#question-status').hide();
                 $('#question-view').hide();
                 $('#answer-view').hide();
-                $('#result-screen').show().html('<h2>You Got It</h2>');
-                $('#result-screen').html('<a href="" class="next-question-button">Next Question</a>')
-                counter++;
+                // $('#result-screen').show().text('You Got It');
+                $('#result-screen').show().html('<h2>You\'re correct</h2><a href="" class="next-question-button">Next Question</a>');
             } else {
                 $('#question-answer-box').hide();
                 $('#correct-incorrect-status').hide();
+                $('#question-status').hide();
                 $('#question-view').hide();
                 $('#answer-view').hide();
-                $('#result-screen').show().text('Sorry, the correct answer is ' + answer);
+                $('#result-screen').show().html('<h2>Sorry, the correct answer is ' + answer + '</h2><a href="" class="next-question-button">Next Question</a>');
             }
         });
     }
 
-    $('.next-question-button').on('click',function(event) {
-      var counter = 1;
-      event.preventDefault();
+    $('.next-question-button').click(function() {
+      // event.preventDefault();
       nextQuestionGenerator();
       $('#result-screen').hide();
       $('#question-answer-box').show();
@@ -168,7 +174,6 @@ $(document).ready(function() {
       $('#question-view').show();
       $('#answer-view').show();
       $('#question-status').show();
-      counter++;
     });
 
 });
